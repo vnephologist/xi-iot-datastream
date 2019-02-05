@@ -9,14 +9,17 @@
   .. example/index
   contents/lab
 
+.. _welcome:
+
+Welcome
+#######
+
+Welcome to Nutanix API Getting Started Lab (Python) - v1.1.
+
 .. _getting_started:
 
 What We Are Doing
 #################
-
-.. raw:: html
-
-  <strong><font color="red">Do not start any labs before being told to do so by your Presenter.</font></strong>
   
 The Nutanix Python API Lab will cover a couple of key points.
 

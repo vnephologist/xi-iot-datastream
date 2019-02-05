@@ -71,7 +71,7 @@ Even though virtual environments (venv) are now included with Python 3, we'll us
 
 .. note::
 
-  Windows systems:** As at January 2019, a **default** installation of Python 3.6 will be installed in the following folder:
+  Windows systems: As at January 2019, a **default** installation of Python 3.6 will be installed in the following folder:
 
   .. code-block:: bash
 
@@ -81,7 +81,7 @@ Running these commands to setup and activate a new virtual environment will look
 
 .. note::
 
-  Note the `(nutanix)` designation that indicates we are now developing inside the new virtual environment.
+  The `(nutanix)` designation indicates we are now developing inside the new virtual environment.
 
 .. figure:: images/venv_activated_linux.png
 .. figure:: images/venv_activated_windows.png
