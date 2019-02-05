@@ -1,4 +1,4 @@
-initialization.. _apis:
+initialisation.. _apis:
 
 ------------------------------
 Nutanix API + Python Flask Lab
@@ -167,7 +167,9 @@ Create a file in the project folder named `MANIFEST.in` and add the following co
 
 Now, to ensure our dependencies are available, let's install our app for the first time.  This process makes use of both *setup.py* and *MANIFEST.in*.
 
-**Note:** The trailing period (`.`) is required.
+.. note::
+
+  Note: The trailing period below (`.`) is required.
 
 .. figure:: images/linux_logo_32x32.png
 .. figure:: images/osx_logo_32x32.png
@@ -399,13 +401,17 @@ The key directories of our app are as follows.
 - A folder called `lab`.  This folder contains our project's code and all associated files.
 - `nutanix/`, the folder containing our virtual environment files.
 
-Create the `/lab` directory now.
+- Create the `/lab` directory now.
+
+.. figure:: images/linux_logo_32x32.png
+.. figure:: images/osx_logo_32x32.png
+.. figure:: images/windows_logo_32x32.png
 
 .. code-block:: bash
 
   mkdir lab
 
-we'll create these files as we go through the lab, but here is some info of what they do.
+We'll create these files as we go through the lab, but here is some info about what each part does.
 
 - `lab/__init__.py`, the application's "main" entry point.
 - `lab/static/`, the folder containing our JavaScript, CSS and JSON files that describe our main view's layout.
@@ -421,8 +427,6 @@ In addition to the actual project files, most of which don't exist yet, the Git 
 This specific `.gitignore` file is often used with Python projects.
 For our app, the `instance/` line has been added.
 If you are using Git to manage your project's source, this `.gitignore` is a good one to use.
-
-If you are going to store your application in Git or GitHub (recommended), create a file named `.gitignore` and add the following contents:
 
 .. code-block:: bash
 
@@ -441,6 +445,10 @@ If you are going to store your application in Git or GitHub (recommended), creat
   build/
   *.egg-info/
 
+.. note::
+
+  The virtual environment directory is referenced by `nutanix` above.  In your own projects, you should change the `nutanix` reference to the name of your virtual environment.
+
 The ApiClient class
 ...................
 
@@ -448,27 +456,21 @@ The first file we'll create is one of the most supporting files in the app.
 
 This file is the **ApiClient** class and describes what an API request looks like as well as the functions associated with it.
 
-Create the `lab/util/apiclient/` folders.
+- Create the `lab/util/apiclient/` folders.
 
 .. figure:: images/linux_logo_32x32.png
 .. figure:: images/osx_logo_32x32.png
+.. figure:: images/windows_logo_32x32.png
 
 .. code-block:: bash
 
-  mkdir -p lab/util/apiclient
+  mkdir lab/util
+  mkdir lab/util/apiclient
 
-  (nutanix) [root@centos python-lab]# mkdir -p lab/util/apiclient
+  (nutanix) [root@centos python-lab]# mkdir lab/util
+  (nutanix) [root@centos python-lab]# mkdir lab/util/apiclient
 
-Create the file `lab/util/apiclient/__init__py`.
-
-.. figure:: images/linux_logo_32x32.png
-.. figure:: images/osx_logo_32x32.png
-
-.. code-block:: bash
-
-  vi lab/util/apiclient/__init__py
-
-  (nutanix) [root@centos python-lab]# vi lab/util/apiclient/__init__py
+- Create the file `lab/util/apiclient/__init__py`.
 
 The `__init__.py` file is a reserved filename that Python looks for when instantiating a class.
 
@@ -540,7 +542,7 @@ A few things to note about this class:
 
 With the basic application structure and main supporting class created, we can move forward with creating the other parts of our app.
 
-Initialization
+Initialisation
 ++++++++++++++
 
 For this section we'll build the app based on the structure seen earlier.
@@ -556,20 +558,13 @@ CSRF protection isn't strictly required for demo or isolated applications, but i
 
 .. _CSRF: https://en.wikipedia.org/wiki/Cross-site_request_forgery
 
-Create `config.py`.
+- Create `config.py`
 
-Please note that `config.py` should **not** be in the `lab/` folder.
+.. note::
 
-.. figure:: images/linux_logo_32x32.png
-.. figure:: images/osx_logo_32x32.png
+  Please note that `config.py` should **not** be in the `lab/` folder.
 
-.. code-block:: bash
-
-  vi config.py
-
-  (nutanix) [root@centos python-lab]# vi config.py
-
-Add the following content to `config.py`:
+- Add the following content to `config.py`:
 
 .. code-block:: python
 
@@ -578,27 +573,17 @@ Add the following content to `config.py`:
   class Config(object):
       SECRET_KEY = os.environ.get('SECRET_KEY') or 'some strong secret string'
 
-We will import this key later to ensure our app is protected against CSRF.
+While it's not mandatory for this lab, we can import this key later to ensure our app is protected against CSRF (Cross-Site Request Forgery).
 
-Initialization Script
+Initialisation Script
 .....................
 
 `lab/__init__.py` is our application's main initialisation script.  This file contains the application **factory** and instructs Python to treat our `lab` folder as a package.  In our app, configuration and setup, for example, will be carried out inside the factory function and the app returned afterwards.  For a more detailed explanation, please see the official factory tutorial_.
 
 .. _tutorial: http://flask.pocoo.org/docs/1.0/tutorial/factory/
 
-Create a file named `__init__.py` in the `lab/` folder.
-
-.. figure:: images/linux_logo_32x32.png
-.. figure:: images/osx_logo_32x32.png
-
-..  code-block:: bash
-
-  vi lab/__init__.py
-
-  (nutanix) [root@centos python-lab]# vi lab/__init__.py
-
-For our application, the initial contents of `__init__.py` should be as follows:
+- Create a file named `__init__.py` in the `lab/` folder.
+- For our application, the initial contents of `__init__.py` should be as follows:
 
 .. code-block:: python
 
@@ -647,7 +632,7 @@ Application first run
 
 Since we are developing a simple demo application, we only have two requirements to run our app.  Run these commands in the application's main folder i.e. **not** in the `lab/` folder.
 
-Tell Python Flask where to find our application.
+- Tell Python Flask where to find our application.
 
 .. figure:: images/linux_logo_32x32.png
 .. figure:: images/osx_logo_32x32.png
@@ -664,7 +649,7 @@ Tell Python Flask where to find our application.
 
   set FLASK_APP=lab
 
-Tell Python Flask to run our app in development mode:
+- Tell Python Flask to run our app in development mode:
 
 .. figure:: images/linux_logo_32x32.png
 .. figure:: images/osx_logo_32x32.png
@@ -681,7 +666,7 @@ Tell Python Flask to run our app in development mode:
 
   set FLASK_ENV=development
 
-Run the application:
+- Run the application:
 
 .. figure:: images/linux_logo_32x32.png
 .. figure:: images/osx_logo_32x32.png
@@ -697,17 +682,19 @@ At this point, Python Flask tells us exactly what to do in order to test the beg
 
   * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 
-Browse to http://<*initials*-Linux-ToolsVM IP>:5000 on your local machine, or open a browser on your Windows-ToolsVM and point to http://<*initials*-Windows-ToolsVM IP>:5000.
+- Browse to http://<*initials*-Linux-ToolsVM IP>:5000 on your local machine, or open a browser on your Windows-ToolsVM and point to http://<*initials*-Windows-ToolsVM IP>:5000.
 
-If everything is working, you'll get an HTTP 404 (Not Found) error.
+If everything is working, you'll get an error saying the requested URL was not found on the server.  This is expected, since we haven't yet told Flask how to handle requests for the root (`/`) URL.
 
-At this point, that is completely expected but indicates that your environment is setup correctly and Flask is listening for HTTP requests on port 5000.
+Check the output in your console/terminal and you'll also see the 404 error reflected there, as expected.
 
-Check the output in your console/terminal and you'll also see the 404 error reflected there, as expected:
+.. code-block:: bash
+
+  127.0.0.1 - - [05/Feb/2019 15:46:06] "GET / HTTP/1.1" 404 -
 
 This is a good test as it verifies everything is setup and working.  It also verifies that the dependencies are installed, along with Python Flask being ready to serve your application.
 
-Stop the application (Press CTRL+C to quit)
+- Stop the application (Press CTRL+C to quit)
 
 Now let's start building our application by adding the application's supporting files.
 
@@ -721,28 +708,27 @@ Checking directory structure
 
 Create the following directories and files:
 
+- **lab/static**
+- **lab/static/css**
 - **lab/static/css/lib**
 - **lab/static/css/fonts**
+- **lab/static/js**
 - **lab/static/js/lib**
 - **lab/static/layouts**
 
 .. figure:: images/linux_logo_32x32.png
 .. figure:: images/osx_logo_32x32.png
+.. figure:: images/windows_logo_32x32.png
 
 .. code-block:: bash
 
-  mkdir -p lab/static/css/lib
-
-  mkdir -p lab/static/css/fonts
-
-  mkdir -p lab/static/js/lib
-
-  mkdir -p lab/static/layouts
-
-  (nutanix) [root@centos python-lab]# mkdir -p lab/static/css/lib
-  (nutanix) [root@centos python-lab]# mkdir -p lab/static/css/fonts
-  (nutanix) [root@centos python-lab]# mkdir -p lab/static/js/lib
-  (nutanix) [root@centos python-lab]# mkdir -p lab/static/layouts
+  mkdir lab/static
+  mkdir lab/static/css
+  mkdir lab/static/css/lib
+  mkdir lab/static/css/fonts
+  mkdir lab/static/js
+  mkdir lab/static/js/lib
+  mkdir lab/static/layouts
 
 Adding Third Party Files
 ........................
@@ -755,27 +741,19 @@ From the URLs below, grab the relevant file, make sure the name is correct and e
 
 .. figure:: images/linux_logo_32x32.png
 .. figure:: images/osx_logo_32x32.png
+.. figure:: images/windows_logo_32x32.png
 
 .. code-block:: bash
 
-  curl https://github.com/nutanixdev/lab-assets/blob/master/python-lab-v1/css-lib.zip?raw=true -o css-lib.zip
+  curl -L https://github.com/nutanixdev/lab-assets/blob/master/python-lab-v1/css-lib.zip?raw=true -o css-lib.zip
 
-  curl https://github.com/nutanixdev/lab-assets/blob/master/python-lab-v1/fonts.zip?raw=true -o fonts.zip
+  curl -L https://github.com/nutanixdev/lab-assets/blob/master/python-lab-v1/fonts.zip?raw=true -o fonts.zip
 
-  curl https://github.com/nutanixdev/lab-assets/blob/master/python-lab-v1/js-lib.zip?raw=true -o js-lib.zip
+  curl -L https://github.com/nutanixdev/lab-assets/blob/master/python-lab-v1/js-lib.zip?raw=true -o js-lib.zip
 
-**Note**: When extracting the ZIP files, ensure they are extracted **directly** to the directories above and not into subdirectories.
+.. note::
 
-.. figure:: images/linux_logo_32x32.png
-.. figure:: images/osx_logo_32x32.png
-
-.. code-block:: bash
-
-  unzip -d lab/static/css/lib/ css-lib.zip
-
-  unzip -d lab/static/css/fonts/ fonts.zip
-
-  unzip -d lab/static/js/lib/ js-lib.zip
+  If extracting the ZIP files from the command line, ensure they are extracted **directly** to the directories above and not into subdirectories.
 
 .. _CSS: https://github.com/nutanixdev/lab-assets/blob/master/python-lab-v1/css-lib.zip?raw=true
 .. _Fonts: https://github.com/nutanixdev/lab-assets/blob/master/python-lab-v1/fonts.zip?raw=true
@@ -795,15 +773,11 @@ From the URLs below, grab the relevant file, make sure the name is correct and c
 
 .. code-block:: bash
 
-  curl https://raw.githubusercontent.com/nutanixdev/lab-assets/master/python-lab-v1/ntnx.css -o lab/static/css/ntnx.css
+  curl -L https://raw.githubusercontent.com/nutanixdev/lab-assets/master/python-lab-v1/ntnx.css -o lab/static/css/ntnx.css
 
-  curl https://raw.githubusercontent.com/nutanixdev/lab-assets/master/python-lab-v1/ntnx.js -o lab/static/js/ntnx.js
+  curl -L https://raw.githubusercontent.com/nutanixdev/lab-assets/master/python-lab-v1/ntnx.js -o lab/static/js/ntnx.js
 
-  curl https://raw.githubusercontent.com/nutanixdev/lab-assets/master/python-lab-v1/dashboard.json -o lab/static/layouts/dashboard.json
-
-  (nutanix) [root@centos python-lab]# curl https://raw.githubusercontent.com/nutanixdev/lab-assets/master/python-lab-v1/ntnx.css -o lab/static/css/ntnx.css
-  (nutanix) [root@centos python-lab]# curl https://raw.githubusercontent.com/nutanixdev/lab-assets/master/python-lab-v1/ntnx.js -o lab/static/js/ntnx.js
-  (nutanix) [root@centos python-lab]# curl https://raw.githubusercontent.com/nutanixdev/lab-assets/master/python-lab-v1/dashboard.json -o lab/static/layouts/dashboard.json
+  curl -L https://raw.githubusercontent.com/nutanixdev/lab-assets/master/python-lab-v1/dashboard.json -o lab/static/layouts/dashboard.json
 
 .. _ntnx.css: https://raw.githubusercontent.com/nutanixdev/lab-assets/master/python-lab-v1/ntnx.css
 .. _ntnx.js: https://raw.githubusercontent.com/nutanixdev/lab-assets/master/python-lab-v1/ntnx.js
@@ -865,16 +839,8 @@ Because we are writing a single-page application that is accessed via the root (
 
 However, that view references other views that we haven't created, yet.  To prepare for the main application view, let's first create the 'forms' view.  It handles the creation of the form that accepts input from the user.
 
-Create `lab/forms.py`:
-
-.. figure:: images/linux_logo_32x32.png
-.. figure:: images/osx_logo_32x32.png
-
-.. code-block:: bash
-
-  vi lab/forms.py
-
-Add the following content:
+- Create `lab/forms.py`.
+- Add the following content to `lab/forms.py`:
 
 .. code-block:: python
 
@@ -901,16 +867,8 @@ The resources below are for learning more about forms management in Python Flask
 
 With the forms view created, we look at the main view for our application.  Let's do that now.
 
-Create `lab/index.py` and
-
-.. figure:: images/linux_logo_32x32.png
-.. figure:: images/osx_logo_32x32.png
-
-.. code-block:: bash
-
-  vi lab/index.py
-
-Add the following content:
+- Create `lab/index.py`
+- Add the following content to `lab/index.py`:
 
 .. code-block:: python
 
@@ -933,15 +891,14 @@ You'll notice that the first thing the `index` view does is reference the `forms
 
 The view does a few things:
 
-- Registers the '/' URL
+- Registers the '/' URL.  Do you recall the 404 error we received when first running our app?  This is where we are instructing Flask how to handle requests to the root (`/`) URL.
 - Creates an instance of our `form` view
 - Renders the view based on the `index.html` template (which we will create shortly)
 
 However, for this view to function correctly, we now need to make it available via the application initialisation script.
 
-Open `lab/__init__.py`
-
-Below the line that says `    pass`, add the following content, remembering to indent the code correctly:
+- Open `lab/__init__.py`
+- Below the line that says `    pass`, add the following content, remembering to indent the code correctly:
 
 .. code-block:: python
 
@@ -953,18 +910,10 @@ Below the line that says `    pass`, add the following content, remembering to i
 
 The `index` view (and `ajax` view, which we will create shortly) are now available to our app.
 
-Quick question - what will happen if we now run our application?  Correct - we will be shown an error saying the `ajax` view can't be imported.  To fix that and prepare for template creation, let's create our `ajax` view now.
+**Quick question**.  What will happen if we now run our application?  Correct - we will be shown an error saying the `ajax` view can't be imported.  To fix that and prepare for template creation, let's create our `ajax` view now.
 
-Create `lab/ajax.py`
-
-.. figure:: images/linux_logo_32x32.png
-.. figure:: images/osx_logo_32x32.png
-
-.. code-block:: bash
-
-  vi lab/ajax.py
-
-Add the following content. (We'll go through what the view does in an upcoming section).
+- Create `lab/ajax.py`
+- Add the following content to `lab/ajax.py`. (We'll go through what the view does in an upcoming section).
 
 .. code-block:: python
 
@@ -1077,14 +1026,15 @@ Add the following content. (We'll go through what the view does in an upcoming s
 Templates
 .........
 
-Create the `lab/templates` folder.
+- Create the `lab/templates` folder.
 
 .. figure:: images/linux_logo_32x32.png
 .. figure:: images/osx_logo_32x32.png
+.. figure:: images/windows_logo_32x32.png
 
 .. code-block:: bash
 
-  mkdir -p lab/templates
+  mkdir lab/templates
 
 Inside the `templates` folder we are going to create two templates.  These are as follows:
 
@@ -1094,16 +1044,8 @@ Inside the `templates` folder we are going to create two templates.  These are a
 Both templates are mostly HTML, with the exception of a few placeholders.
 The placeholders are identified by being enclosed in `{{` and `}}` and will be replaced with dynamic data when the template is rendered.
 
-Create `lab/templates/base.html`:
-
-.. figure:: images/linux_logo_32x32.png
-.. figure:: images/osx_logo_32x32.png
-
-.. code-block:: bash
-
-  vi lab/templates/base.html
-
-Add the following content:
+- Create `lab/templates/base.html`
+- Add the following content to `lab/templates/base.html`:
 
 .. code-block:: html
 
@@ -1158,16 +1100,8 @@ Add the following content:
 
   </html>
 
-Create `lab/templates/index.html`:
-
-.. figure:: images/linux_logo_32x32.png
-.. figure:: images/osx_logo_32x32.png
-
-.. code-block:: bash
-
-  vi lab/templates/index.html
-
-Add the following content:
+- Create `lab/templates/index.html`.
+- Add the following content to `lab/templates/index.html`:
 
 .. code-block:: html
 
@@ -1212,13 +1146,13 @@ We can now tell that the `index` template is rendered using the `base` template.
 
 Now let's look a little deeper into the `ajax` view and see how it works.
 
-The AJAX View
-+++++++++++++
+JavaScript and AJAX
++++++++++++++++++++
 
-JavaScript function
-...................
+The JavaScript Function
+.......................
 
-The `ajax` view is a key part of our application.  This function is in the `lab/static/js/ntnx.js` file.  When the user enters their cluster or CVM IP address, credentials and hits the 'Go!' button, JavaScript makes various calls to the Nutanix APIs.  These calls are handled via AJAX_ so the user's browser doesn't get refreshed every time.
+The `ajax` view is a key part of our application.  It gets used via various JavsScript functions, stored in `lab/static/js/ntnx.js` file.  When the user enters their cluster or CVM IP address, credentials and hits the 'Go!' button, JavaScript makes various calls to the Nutanix APIs.  These calls are handled via AJAX_ so the user's browser doesn't get refreshed every time.
 
 .. _AJAX: https://en.wikipedia.org/wiki/Ajax_(programming)
 
@@ -1262,6 +1196,8 @@ The AJAX
 
 Now that we are familiar with the simple JavaScript code that will make the AJAX call, let's look at the Python code that carries out the first part of the API request.
 
+This Python code is stored in `lab/ajax.py`.
+
 .. code-block:: python
 
   """
@@ -1281,19 +1217,23 @@ Here are the most important steps carried out by this function:
 - `get_form()` - Get the user data available in the POST request.  This includes the CVM/Cluster IP address, username and password.
 - `client = apiclient.ApiClient('get', cvmAddress,'vms','',username,password,'v2.0')` - Create an instance of our `ApiClient` class and set the properties we'll need to execute the API request.
 
-**Note:** You'll notice a few parameters being passed during instantiation of the ApiClient class.  As an optional step, open `lab/util/apiclient/__init__py` and look at the other parameters that can be passed.  For example, you can specify the API endpoint we're interested and the API version.  These are useful options for using the same ApiClient class with different versions of the APIs.
-
 - `results = client.get_info()` - Execute the actual API request.
 - `return jsonify(results)` - Convert the API request results to JSON format and return the JSON back to the calling JavaScript, where it will be processed and displayed in our app.
+
+.. note::
+
+  You'll notice a few parameters being passed during instantiation of the ApiClient class.  As an optional step, open `lab/util/apiclient/__init__.py` and look at the other parameters that can be passed.  For example, you can specify the API endpoint we're interested and the API version.  These are useful options for using the same ApiClient class with different versions of the APIs.
 
 The API request
 ...............
 
 Because the Nutanix REST APIs are designed to be simple to use, it's very easy to understand what the request itself is doing.
 
-In the **Intro** section of this lab, we looked at the various Nutanix API versions that are available to you.  In the example above, we are using Nutanix API v2.0 to get a count of VMs running on our cluster.  The JavaScript making the AJAX call and the Python executing the API request, are constructing the following GET request.
+In the **Nutanix API Intro** section of this lab, we looked at the various Nutanix API versions that are available to you.  In the example above, we are using Nutanix API v2.0 to get a count of VMs running on our cluster.  The JavaScript making the AJAX call and the Python executing the API request, are constructing the following GET request.
 
-**Note:** The request coming from the JavaScript to our Python view is an HTTP POST request.  The request to the API itself, in this example, is an HTTP GET request.
+.. note::
+
+  The request coming from the JavaScript to our Python view is an HTTP POST request.  The request to the API itself, in this example, is an HTTP GET request.
 
 .. code-block:: html
 
@@ -1301,12 +1241,14 @@ In the **Intro** section of this lab, we looked at the various Nutanix API versi
 
 If you were to change `<cluster_virtual_ip>` to your cluster IP address and browse to that URL, you would probably see an error saying `"An Authentication object was not found in the SecurityContext"`.  That's because we haven't specified the credentials that should be used for the request.
 
-**Note:** If you have an open browser tab where you are already logged in and authenticated with an active Nutanix Prism session, it is possible the request may succeed.
+.. note::
+
+  If you have an open browser tab where you are already logged in and authenticated with an active Nutanix Prism session, it is possible the request may succeed, depending on your browser's cookie settings.
 
 Now that we have our API request URL, we can add HTTP Basic Authentication in the form of a username and password, then simulate the entire request using cURL.  For this quick test we will assume the following:
 
 - **Cluster virtual IP address** - *your HPOC Cluser IP*
-- *Cluster username** - admin
+- **Cluster username** - admin
 - **Cluster password** - techX2019!
 
 .. code-block:: bash
@@ -1345,23 +1287,25 @@ If you don't currently have your virtual environment activated or if the applica
 .. code-block:: bash
 
   set FLASK_APP=lab
+
   set FLASK_ENV=development
+
   nutanix\Scripts\activate.bat
+
   flask run --host 0.0.0.0
 
-Browse to http://<*initials*-Linux-ToolsVM IP>:5000 on your local machine to view your application,  or open a browser on your Windows-ToolsVM and point to http://<*initials*-Windows-ToolsVM IP>:5000.
-
-If everything is setup correctly, you will see a basic HTML form prompting for a **Cluster/CVM IP**, your **Cluster Username** and **Cluster Password**.
+- Browse to http://127.0.0.1:5000 on your local machine to view your application.
+- If everything is setup correctly, you will see a basic HTML form prompting for a **Cluster/CVM IP**, your **Cluster Username** and **Cluster Password**.
 
 You'll also see a number of styled and labelled "containers", ready for our cluster info to be displayed.
 
 Fill out the following fields:
 
-- **Cluster/CVM IP**  - *Assigned HPOC Cluster IP*
-- **Cluster Username**  - admin
-- **Cluster Password**  - techX2019!
+- **Cluster/CVM IP** - The IP address of your cluster or CVM
+- **Cluster Username** - Cluster username.  Note that this can be a read-only account.
+- **Cluster Password** - Cluster password.
 
-Click **Go!**
+- Click **Go!**
 
 If everything has been created and all parts of the application wired up correctly, the application will carry out our API requests via AJAX, process the results and display it all nicely on our page.
 
@@ -1376,9 +1320,15 @@ With this app built from scratch, you should now have a solid idea of how a Pyth
 
 For further information on the Nutanix REST API versions and the data that is exposed by them, please see the Nutanix Developer Portal_.  There will you find code samples, documentation and information on everything from the APIs we used today (v1 and v2.0) through to v3 APIs, the current "intentful" API implementation.
 
-Thanks for attending this lab with us.
-
-.. _Portal: https://developer.nutanix.com
-
 Takeaways
 +++++++++
+
+The Nutanix APIs have been designed in a way to make them easily accessible from any platform of your choice.  For example:
+
+- Web application e.g. Python Flask as used today
+- Script e.g. PHP, PowerShell, Python shell script
+- Postman for GUI testing
+
+For additional information on the Nutanix APIs, including the current API reference, please see the Nutanix Developer Portal_.
+
+.. _Portal: https://developer.nutanix.com

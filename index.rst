@@ -47,7 +47,7 @@ To successfully complete this lab, you will need an environment that meets the f
 - Python `pip` for Python 3.6.
 - Python Flask.  On **most** systems this should be case of running `pip3 install flask`.   On Windows, `pip3.exe` is in the `Scripts` folder within the Python install location.
 - The text editor of your choice.  A good suggestion is Visual Studio Code_ as it is free and supports Python development via plugin.
-- cURL (included in OS X and Linux).
+- cURL
 - cURL (for Windows - see below).
 
 .. _code: https://code.visualstudio.com/
@@ -67,6 +67,7 @@ From the terminal, the following commands can be used to install Python 3.6:
 .. code-block:: bash
 
     sudo apt-get -y update
+    sudo apt-get -y install curl
     sudo apt-get -y install python3-dev python3-pip
     sudo apt-get -y install python3-venv
     sudo apt-get -y install python3-setuptools
@@ -79,6 +80,7 @@ From the terminal, the following commands can be used to install Python 3.6:
 .. code-block:: bash
 
     sudo yum -y update
+    sudo yum -y install curl
     sudo yum -y install epel-release
     sudo yum -y install python36
     python3.6 -m ensurepip
