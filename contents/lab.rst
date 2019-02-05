@@ -129,7 +129,8 @@ In our case, the setup script is quite basic and simply installs any dependencie
 Firstly, make sure you have created and activated a virtual environment, as outlined above.
 For this lab, your virtual environment should be called `nutanix`.
 
-Create a script in the project folder named `setup.py`.
+- Create a script in the project folder named `setup.py`.
+
 This setup script will handle the installation of dependencies required for this Python Flask application:
 
 .. code-block:: python
@@ -157,7 +158,7 @@ The final file to create at this stage will allow us to make the app `installabl
 This file is called `MANIFEST.in` and describes the other files that are to be included during installation.
 We haven't created some of these files, yet, but that's OK for now.
 
-Create a file in the project folder named `MANIFEST.in` and add the following contents:
+- Create a file in the project folder named `MANIFEST.in` and add the following contents:
 
 .. code-block:: bash
 
@@ -401,6 +402,8 @@ The key directories of our app are as follows.
 - A folder called `lab`.  This folder contains our project's code and all associated files.
 - `nutanix/`, the folder containing our virtual environment files.
 
+Let's get started!
+
 - Create the `/lab` directory now.
 
 .. figure:: images/linux_logo_32x32.png
@@ -470,11 +473,11 @@ This file is the **ApiClient** class and describes what an API request looks lik
   (nutanix) [root@centos python-lab]# mkdir lab/util
   (nutanix) [root@centos python-lab]# mkdir lab/util/apiclient
 
-- Create the file `lab/util/apiclient/__init__py`.
+- Create the file `lab/util/apiclient/__init__.py`
 
 The `__init__.py` file is a reserved filename that Python looks for when instantiating a class.
 
-The contents of `__init.py__` should be as follows:
+The contents of `__init__.py` should be as follows:
 
 .. code-block:: python
 
