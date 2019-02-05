@@ -123,4 +123,4 @@ Cluster Details
 
 In a presenter-led environment you will be using a shared Nutanix cluster.  Please use this cluster when carrying out your cURL and application testing.
 
-Access details for the shared cluster will be provided by your presenter.
+In a self-paced environment you will need access to a Nutanix cluster along with the credentials required to access it.
