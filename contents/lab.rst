@@ -77,6 +77,10 @@ Even though virtual environments (venv) are now included with Python 3, we'll us
 
     C:\Users\<username>\AppData\Local\Programs\Python\Python36
 
+.. note::
+
+  If you are running through this lab using Nutanix Frame, Python 3.6 has been installed in the c:\python36 directory.
+
 Running these commands to setup and activate a new virtual environment will look similar to the following screenshot.
 
 .. note::
@@ -463,15 +467,18 @@ This file is the **ApiClient** class and describes what an API request looks lik
 
 .. figure:: images/linux_logo_32x32.png
 .. figure:: images/osx_logo_32x32.png
-.. figure:: images/windows_logo_32x32.png
 
 .. code-block:: bash
 
   mkdir lab/util
   mkdir lab/util/apiclient
 
-  (nutanix) [root@centos python-lab]# mkdir lab/util
-  (nutanix) [root@centos python-lab]# mkdir lab/util/apiclient
+.. figure:: images/windows_logo_32x32.png
+
+.. code-block:: bash
+
+  mkdir lab\util
+  mkdir lab\util\apiclient
 
 - Create the file `lab/util/apiclient/__init__.py`
 
@@ -673,19 +680,24 @@ Since we are developing a simple demo application, we only have two requirements
 
 .. figure:: images/linux_logo_32x32.png
 .. figure:: images/osx_logo_32x32.png
-.. figure:: images/windows_logo_32x32.png
 
 .. code-block:: bash
 
   flask run --host 0.0.0.0
 
+.. figure:: images/windows_logo_32x32.png
+
+.. code-block:: bash
+
+  flask run
+
 At this point, Python Flask tells us exactly what to do in order to test the beginnings of our application:
 
 .. code-block:: bash
 
-  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+  * Running on http://<ip_address>:5000/ (Press CTRL+C to quit)
 
-- Browse to http://<*initials*-Linux-ToolsVM IP>:5000 on your local machine, or open a browser on your Windows-ToolsVM and point to http://<*initials*-Windows-ToolsVM IP>:5000.
+- Browse to http://127.0.0.1:5000 on your local machine
 
 If everything is working, you'll get an error saying the requested URL was not found on the server.  This is expected, since we haven't yet told Flask how to handle requests for the root (`/`) URL.
 
@@ -721,7 +733,6 @@ Create the following directories and files:
 
 .. figure:: images/linux_logo_32x32.png
 .. figure:: images/osx_logo_32x32.png
-.. figure:: images/windows_logo_32x32.png
 
 .. code-block:: bash
 
@@ -732,6 +743,18 @@ Create the following directories and files:
   mkdir lab/static/js
   mkdir lab/static/js/lib
   mkdir lab/static/layouts
+
+.. figure:: images/windows_logo_32x32.png
+
+.. code-block:: bash  
+
+  mkdir lab\static
+  mkdir lab\static\css
+  mkdir lab\static\css\lib
+  mkdir lab\static\css\fonts
+  mkdir lab\static\js
+  mkdir lab\static\js\lib
+  mkdir lab\static\layouts
 
 Adding Third Party Files
 ........................
@@ -749,9 +772,7 @@ From the URLs below, grab the relevant file, make sure the name is correct and e
 .. code-block:: bash
 
   curl -L https://github.com/nutanixdev/lab-assets/blob/master/python-lab-v1/css-lib.zip?raw=true -o css-lib.zip
-
   curl -L https://github.com/nutanixdev/lab-assets/blob/master/python-lab-v1/fonts.zip?raw=true -o fonts.zip
-
   curl -L https://github.com/nutanixdev/lab-assets/blob/master/python-lab-v1/js-lib.zip?raw=true -o js-lib.zip
 
 .. note::
@@ -1033,11 +1054,16 @@ Templates
 
 .. figure:: images/linux_logo_32x32.png
 .. figure:: images/osx_logo_32x32.png
-.. figure:: images/windows_logo_32x32.png
 
 .. code-block:: bash
 
   mkdir lab/templates
+
+.. figure:: images/windows_logo_32x32.png
+
+.. code-block:: bash
+
+  mkdir lab\templates  
 
 Inside the `templates` folder we are going to create two templates.  These are as follows:
 
@@ -1295,7 +1321,7 @@ If you don't currently have your virtual environment activated or if the applica
 
   nutanix\Scripts\activate.bat
 
-  flask run --host 0.0.0.0
+  flask run
 
 - Browse to http://127.0.0.1:5000 on your local machine to view your application.
 - If everything is setup correctly, you will see a basic HTML form prompting for a **Cluster/CVM IP**, your **Cluster Username** and **Cluster Password**.

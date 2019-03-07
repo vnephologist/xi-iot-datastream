@@ -95,6 +95,10 @@ Python 3.6 and cURL on Windows
 .. _installer: https://www.python.org/downloads/release/python-360/
 .. _website: https://curl.haxx.se/windows/
 
+.. note::
+
+  If you are running through this lab using Nutanix Frame, Python 3.6 has been installed in the c:\python36 directory.  cURL has also been installed in the c:\tools directory.
+
 Note that cURL is not required to create the demo app.  cURL command samples are provided throughout the lab and may be used for reference at any time.  This is due to its cross-platform nature vs supporting platform-specific commands (e.g. PowerShell).
 
 **Note re Windows systems:** As at January 2019, a **default** installation of Python 3.6 will be installed in the following folder:
