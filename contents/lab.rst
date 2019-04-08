@@ -642,6 +642,13 @@ Application first run
 
 Since we are developing a simple demo application, we only have two requirements to run our app.  Run these commands in the application's main folder i.e. **not** in the `lab/` folder.
 
+**Important note**: If you are running this lab on a non-US keyboard, there is an additional step to ensure Flask runs properly.  The commands below are temporary and won't permanently modify your system.
+
+.. code-block:: bash
+
+  export LC_ALL=en_US.UTF-8
+  export LANG=en_US.UTF-8
+
 - Tell Python Flask where to find our application.
 
 .. figure:: images/linux_logo_32x32.png
