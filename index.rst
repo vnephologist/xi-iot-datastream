@@ -151,7 +151,7 @@ Please refer to `mqtt package <https://www.npmjs.com/package/mqtt>`__ and exampl
 
    Below is a simple example that shows how to connect to an mqtt  broker, publish a single message to a specific topic and receive the published message back.
 
-   .. code-block:: bash
+   .. code-block:: python2
 
     # Example code to connect, publish and subscribe from a mqtt client
     # For the example to work:
@@ -223,11 +223,11 @@ Please refer to `mqtt package <https://www.npmjs.com/package/mqtt>`__ and exampl
 
 1. Download the certificates from Xi IoT and store them locally under certs. directory. Name the files as follows:
 
--  ca.crt - Root CA certificate
+ -  ca.crt - Root CA certificate
 
--  client.crt - client certificate
+ -  client.crt - client certificate
 
--  client.key - client private key
+ -  client.key - client private key
 
 2. Modify broker_address to point to the Xi IoT edge IP address.
 
@@ -235,21 +235,20 @@ Please refer to `mqtt package <https://www.npmjs.com/package/mqtt>`__ and exampl
 
    Run the example as follows:
 
-   $ python2.7 mqtt-example.py
+   .. code-block:: python2
+   
+    $ python2.7 mqtt-example.py
 
    Expected output:
 
-   Connecting...
-
-   Connected to broker
-
-   Published!
-
-   New message received!
-
-   Topic: test
-
-   Message: Hello, World!
+   .. code-block:: bash
+   
+    Connecting...
+    Connected to broker
+    Published!
+    New message received!
+    Topic: test
+    Message: Hello, World!
 
 **Runtime Environments**
 =======================
@@ -267,74 +266,52 @@ Xi IoT includes standard runtime environments including but not limited to the f
       Moreover context is used to send messages to next stage in data pipeline.
 
    -  Following is a basic Node.js function template:
+   
+      .. code-block:: NodeJS
 
-..
+       function main(ctx, msg) {
+           return new Promise(function(resolve, reject) {
+              // log list of transformation parameters
+              console.log("Config", ctx.config)
+              // log length of message payload
+              console.log(msg.length)
+              // forward message to next stage in pipeline
+              ctx.send(msg)
+             // complete promise
+              resolve()
+           })
+        }
 
-   function main(ctx, msg) {
-
-   return new Promise(function(resolve, reject) {
-
-   // log list of transformation parameters
-
-   console.log("Config", ctx.config)
-
-   // log length of message payload
-
-   console.log(msg.length)
-
-   // forward message to next stage in pipeline
-
-   ctx.send(msg)
-
-   // complete promise
-
-   resolve()
-
-   })
-
-   }
-
-   exports.main = main
+       exports.main = main
 
    All functions must export main which returns a promise.
 
-   Following is some sample console output of function:
+   Expected console output:
 
-   Config { IntParam: '42', StringParam: 'hello' }
+   .. code-block:: bash
+   
+    Config { IntParam: '42', StringParam: 'hello' }
+    2764855
 
-   2764855
+   .. note::
 
-   Packages available in NodeJS Runtime
+      Packages available in NodeJS Runtime
 
--  alpine-baselayout
-
--  alpine-keys
-
--  apk-tools
-
--  busybox
-
--  libc-utils
-
--  libgcc
-
--  libressl2.5-libcrypto
-
--  libressl2.5-libssl
-
--  libressl2.5-libtls
-
--  libstdc++
-
--  musl
-
--  musl-utils
-
--  scanelf
-
--  ssl_client
-
--  zlib
+      -  alpine-baselayout
+      -  alpine-keys
+      -  apk-tools
+      -  busybox
+      -  libc-utils
+      -  libgcc
+      -  libressl2.5-libcrypto
+      -  libressl2.5-libssl
+      -  libressl2.5-libtls
+      -  libstdc++
+      -  musl
+      -  musl-utils
+      -  scanelf
+      -  ssl_client
+      -  zlib
 
 -  **Python 2**
 
