@@ -8,7 +8,7 @@
 
 Welcome
 ###########
-Welcome to the Xi IoT - Data Pipelines - Getting Started Guide, v0.2.
+Welcome to the Nutanix Xi IoT Getting Started with Data Pipelines Guide, v0.2.
 
 
 Introducing Data Pipelines
