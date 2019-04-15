@@ -1,4 +1,4 @@
-.. title:: Xi IoT - Data Pipelines - Getting Started Guide
+.. title:: Nutanix Xi IoT Getting Started with Data Pipelines
 
 .. toctree::
   :maxdepth: 2
@@ -6,18 +6,13 @@
   :name: _req-labs
   :hidden:
 
-  .. example/index
-  contents/lab
-
-.. _welcome:
-
-**Welcome**
-===========
+Welcome
+###########
 Welcome to the Xi IoT - Data Pipelines - Getting Started Guide, v0.2.
 
 
-**Introducing Data Pipelines**
-===============================
+Introducing Data Pipelines
+###############################
 
 The main steps in this guide are excerpts from the `Xi IoT Infrastructure Admin Guide <https://portal.nutanix.com/#/page/docs/details?targetId=Xi-IoT-Infra-Admin-Guide:Xi-IoT-Infra-Admin-Guide>`__, available from the Nutanix Support Portal.
 
@@ -39,15 +34,15 @@ Data pipelines have the following components used in the examples in this guide:
 
 -  Functions
 
-**Using MQTT Data Sources in Data Pipelines**
+Using MQTT Data Sources in Data Pipelines
 ---------------------------------------------
 
-**What is MQTT?**
+What is MQTT?
 ~~~~~~~~~~~~~~~~~
 
 If you are looking to understand the internals of how MQTT works, please read the 10 part series on `MQTT Essentials <https://www.hivemq.com/tags/mqtt-essentials/>`__ by HiveMQ.
 
-**Adding a Data Source**
+Adding a Data Source
 ------------------------
 
 You can add one or more data sources (a collection of sensors, gateways, or other input devices providing data) to associate with an edge.
@@ -64,7 +59,7 @@ Each defined data source consists of:
 
 -  Categories which are attributes that can be metadata you define to associate with the captured data
 
-**Add a Data Source - MQTT**
+Add a Data Source - MQTT
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Add one or more data sources using the Message Queuing Telemetry Transport lightweight messaging protocol (MQTT) to associate with an
@@ -93,7 +88,7 @@ When naming entities, Up to 200 alphanumeric characters are allowed.
 
 3. Click **Next** to go to **Data Extraction** to specify the datafields to extract from the data source.
 
-**Data Extraction - MQTT**
+Data Extraction - MQTT
 --------------------------
 
 1. Click **Add New Field**.
@@ -106,7 +101,7 @@ When naming entities, Up to 200 alphanumeric characters are allowed.
 
 2. Click **Add New Field** to add another topic or click **Next** to go to the **Category Assignment** panel.
 
-**Categories - MQTT**
+Categories - MQTT
 ---------------------
 
 Categories enable you to define metadata associated with captured files from the data source.
@@ -119,18 +114,18 @@ Categories enable you to define metadata associated with captured files from the
 
 4. Click **Add**.
 
-**MQTT Client Samples for Testing**
+MQTT Client Samples for Testing
 -----------------------------------
 
 If you are looking to understand the internals of how MQTT works, please read the 10 part series on `MQTT Essentials <https://www.hivemq.com/tags/mqtt-essentials/>`__ by HiveMQ.
 
-**Javascript**
+Javascript
 ~~~~~~~~~~~~~~
 
 Please refer to `mqtt package <https://www.npmjs.com/package/mqtt>`__ and examples
 `here <https://github.com/mqttjs/MQTT.js/blob/master/examples/client/secure-client.js>`__ for creating secure mqtt clients in javascript.
 
-**Python 2**
+Python 2
 ~~~~~~~~~~~~
 
    Prerequisites
@@ -151,83 +146,127 @@ Please refer to `mqtt package <https://www.npmjs.com/package/mqtt>`__ and exampl
 
    Below is a simple example that shows how to connect to an mqtt  broker, publish a single message to a specific topic and receive the published message back.
 
-   .. code-block:: python2
+   # Example code to connect, publish and subscribe from a mqtt client
 
-    # Example code to connect, publish and subscribe from a mqtt client
-    # For the example to work:
-    # 1. create a dir named 'certs' under $PWD and copy the certs
-    #    generated using Xi IoT SaaS Portal.
-    # 2. Modify the 'broker_address' variable to point to the edge
-    #    ip address that is being used for the tests.
+   # For the example to work:
 
-    import paho.mqtt.client as mqttClient
-    import time
-    import ssl
+   # 1. create a dir named 'certs' under $PWD and copy the certs
 
-    def on_connect(client, userdata, flags, rc):
-        if rc == 0:
-            print("Connected to broker")
-            global Connected
-            Connected = True                #Signal connection 
-        else:
-            print("Connection failed")
+   # generated using Xi IoT SaaS Portal.
 
-    def on_publish(client, userdata, result):
-      print "Published!"
+   # 2. Modify the 'broker_address' variable to point to the edge
 
-    def on_message(client, userdata, message):
-        print "New message received!"
-        print "Topic: ", message.topic
-        print "Message: ", str(message.payload.decode("utf-8"))
+   # ip address that is being used for the tests.
 
-    def main():
-        global Connected
-        Connected = False
-        # IP address of the edge. Modify this.
-        broker_address= "<edge_ip>"
-        port = 1883
-        # NOTE: For data pipelines to receive MQTT messages, topic should
-        #       be the same as that specified when creating the MQTT datasource.
-        topic = "test"
+   import paho.mqtt.client as mqttClient
 
-        client = mqttClient.Client()
-        # Set callbacks for connection event, publish event and message receive event
-        client.on_connect = on_connect
-        client.on_publish = on_publish
-        client.on_message = on_message
-        client.tls_set(ca_certs="certs/ca.crt", certfile="certs/client.crt", keyfile="certs/client.key", cert_reqs=ssl.CERT_REQUIRED, tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None)
-        # Set this to ignore hostname only. TLS is still valid with this setting.
-        client.tls_insecure_set(True)
-        client.connect(broker_address, port=port)
-        client.subscribe(topic)
-        client.loop_start()
+   import time
 
-        # Wait for connection
-        while Connected != True:    
-            print "Connecting..."
-            time.sleep(1)
+   import ssl
 
+   def on_connect(client, userdata, flags, rc):
 
-        try:
-            client.publish(topic, "Hello, World!")
-            time.sleep(5)
-        except KeyboardInterrupt:
-            client.disconnect()
-            client.loop_stop()
+   if rc ## 0:
 
-    if __name__ == "__main__":
-        main()
+   print("Connected to broker")
 
+   global Connected
+
+   Connected = True #Signal connection
+
+   else:
+
+   print("Connection failed")
+
+   def on_publish(client, userdata, result):
+
+   print "Published!"
+
+   def on_message(client, userdata, message):
+
+   print "New message received!"
+
+   print "Topic: ", message.topic
+
+   print "Message: ", str(message.payload.decode("utf-8"))
+
+   def main():
+
+   global Connected
+
+   Connected = False
+
+   # IP address of the edge. Modify this.
+
+   broker_address= "<edge_ip>"
+
+   port = 1883
+
+   # NOTE: For data pipelines to receive MQTT messages, topic should
+
+   # be the same as that specified when creating the MQTT datasource.
+
+   topic = "test"
+
+   client = mqttClient.Client()
+
+   # Set callbacks for connection event, publish event and message
+   receive event
+
+   client.on_connect = on_connect
+
+   client.on_publish = on_publish
+
+   client.on_message = on_message
+
+   client.tls_set(ca_certs="certs/ca.crt", certfile="certs/client.crt",
+   keyfile="certs/client.key", cert_reqs=ssl.CERT_REQUIRED,
+   tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None)
+
+   # Set this to ignore hostname only. TLS is still valid with this
+   setting.
+
+   client.tls_insecure_set(True)
+
+   client.connect(broker_address, port=port)
+
+   client.subscribe(topic)
+
+   client.loop_start()
+
+   # Wait for connection
+
+   while Connected != True:
+
+   print "Connecting..."
+
+   time.sleep(1)
+
+   try:
+
+   client.publish(topic, "Hello, World!")
+
+   time.sleep(5)
+
+   except KeyboardInterrupt:
+
+   client.disconnect()
+
+   client.loop_stop()
+
+   if \__name_\_ ## "__main__":
+
+   main()
 
    Running the example
 
 1. Download the certificates from Xi IoT and store them locally under certs. directory. Name the files as follows:
 
- -  ca.crt - Root CA certificate
+-  ca.crt - Root CA certificate
 
- -  client.crt - client certificate
+-  client.crt - client certificate
 
- -  client.key - client private key
+-  client.key - client private key
 
 2. Modify broker_address to point to the Xi IoT edge IP address.
 
@@ -235,23 +274,24 @@ Please refer to `mqtt package <https://www.npmjs.com/package/mqtt>`__ and exampl
 
    Run the example as follows:
 
-   .. code-block:: python2
-   
-    $ python2.7 mqtt-example.py
+   $ python2.7 mqtt-example.py
 
    Expected output:
 
-   .. code-block:: bash
-   
-    Connecting...
-    Connected to broker
-    Published!
-    New message received!
-    Topic: test
-    Message: Hello, World!
+   Connecting...
 
-**Runtime Environments**
-=======================
+   Connected to broker
+
+   Published!
+
+   New message received!
+
+   Topic: test
+
+   Message: Hello, World!
+
+Runtime Environments
+#######################
 
 A runtime environment is a command execution environment to run applications written in a particular language or associated with a specific Docker registry or file. 
 Each Function added to a Data Pipeline is executed via its own specified Runtime Environment.
@@ -266,52 +306,74 @@ Xi IoT includes standard runtime environments including but not limited to the f
       Moreover context is used to send messages to next stage in data pipeline.
 
    -  Following is a basic Node.js function template:
-   
-      .. code-block:: NodeJS
 
-       function main(ctx, msg) {
-           return new Promise(function(resolve, reject) {
-              // log list of transformation parameters
-              console.log("Config", ctx.config)
-              // log length of message payload
-              console.log(msg.length)
-              // forward message to next stage in pipeline
-              ctx.send(msg)
-             // complete promise
-              resolve()
-           })
-        }
+..
 
-       exports.main = main
+   function main(ctx, msg) {
+
+   return new Promise(function(resolve, reject) {
+
+   // log list of transformation parameters
+
+   console.log("Config", ctx.config)
+
+   // log length of message payload
+
+   console.log(msg.length)
+
+   // forward message to next stage in pipeline
+
+   ctx.send(msg)
+
+   // complete promise
+
+   resolve()
+
+   })
+
+   }
+
+   exports.main = main
 
    All functions must export main which returns a promise.
 
-   Expected console output:
+   Following is some sample console output of function:
 
-   .. code-block:: bash
-   
-    Config { IntParam: '42', StringParam: 'hello' }
-    2764855
+   Config { IntParam: '42', StringParam: 'hello' }
 
-   .. note::
+   2764855
 
-      Packages available in NodeJS Runtime
+   Packages available in NodeJS Runtime
 
-      -  alpine-baselayout
-      -  alpine-keys
-      -  apk-tools
-      -  busybox
-      -  libc-utils
-      -  libgcc
-      -  libressl2.5-libcrypto
-      -  libressl2.5-libssl
-      -  libressl2.5-libtls
-      -  libstdc++
-      -  musl
-      -  musl-utils
-      -  scanelf
-      -  ssl_client
-      -  zlib
+-  alpine-baselayout
+
+-  alpine-keys
+
+-  apk-tools
+
+-  busybox
+
+-  libc-utils
+
+-  libgcc
+
+-  libressl2.5-libcrypto
+
+-  libressl2.5-libssl
+
+-  libressl2.5-libtls
+
+-  libstdc++
+
+-  musl
+
+-  musl-utils
+
+-  scanelf
+
+-  ssl_client
+
+-  zlib
 
 -  **Python 2**
 
@@ -717,7 +779,7 @@ You can add your own custom runtime environment for use by all or specific proje
 
 **Note:** Custom Golang runtime environments are not supported. Use the provided standard Golang runtime environment in this case.
 
-**Building a Custom Runtime Environment**
+Building a Custom Runtime Environment
 -----------------------------------------
 
 You may need a custom runtime for some third party packages or OS distributions (like Linux) which might have dependencies not covered with the built-in Xi IoT runtimes.
@@ -879,7 +941,7 @@ Upload the docker image to a container registry. AWS Elastic Containeregistry (E
 
    CMD ["/python-env/run.sh"]
 
-**Creating a Runtime Environment**
+Creating a Runtime Environment
 ----------------------------------
 
 This topic describes how to create a runtime environment and assumes you are already logged on to the Xi IoT management console.
@@ -904,7 +966,7 @@ This topic describes how to create a runtime environment and assumes you are alr
 
 9. Click **Create**.
 
-**Editing a Runtime Environment**
+Editing a Runtime Environment
 ---------------------------------
 
 This topic describes how to edit a runtime environment and assumes you are already logged on to the Xi IoT management console.
@@ -942,7 +1004,7 @@ This topic describes how to edit a runtime environment and assumes you are alrea
 
 14. Click **Update**.
 
-**Removing a Runtime Environment**
+Removing a Runtime Environment
 ----------------------------------
 
 This topic describes how to delete a runtime environment and assumes you have already logged on to the Xi IoT management console.
@@ -955,8 +1017,8 @@ This topic describes how to delete a runtime environment and assumes you have al
 
 4. The **Data Pipelines** page lists any remaining data pipelines.
 
-**Functions**
-=============
+Functions
+#############
 
 A function is code used to perform one or more tasks. Script languages include Python, Golang, and Node.js. A script can be as simple as text processing code or it could be advanced code implementing artificial intelligence, using popular machine learning frameworks like Tensorflow.
 
@@ -968,7 +1030,7 @@ An infrastructure administrator or project user can create a function, and later
 
 -  Data pipelines can share functions, but you can specify unique parameter values for the function in each data pipeline.
 
-**Creating a Function**
+Creating a Function
 -----------------------
 
 This topic describes how to create a function and assumes you are already logged on to the Xi IoT management console.
@@ -999,7 +1061,7 @@ This topic describes how to create a function and assumes you are already logged
 
 9. Click **Create**.
 
-**Editing a Function**
+Editing a Function
 ----------------------
 
 This topic describes how to edit an existing function and assumes you are already logged on to the Xi IoT management console.
@@ -1036,7 +1098,7 @@ This topic describes how to edit an existing function and assumes you are alread
 
 11. Click **Update**.
 
-**Cloning a Function**
+Cloning a Function
 ----------------------
 
 This topic describes how to clone an existing function and assumes you are already logged on to the Xi IoT management console.
@@ -1071,7 +1133,7 @@ Click **X** or **Cancel** to exit this task.
 
 11. Click **Create**.
 
-**Removing a Function**
+Removing a Function
 -----------------------
 
 This topic describes how to delete a function and assumes you have already logged on to the Xi IoT management console.
@@ -1084,10 +1146,10 @@ You cannot remove a function that is associated with a data pipeline or realtime
 
 3. The **Functions** page lists any remaining functions.
 
-**Data Pipelines**
-==================
+Data Pipelines
+##################
 
-**Data Pipeline Visualization**
+Data Pipeline Visualization
 -------------------------------
 
 After you have created one or more data pipelines, the **Data Pipelines** > **Visualization** page shows data pipelines and the relationship among data pipeline components.
@@ -1106,10 +1168,10 @@ You can view data pipelines associated with a Xi Edge by clicking the filter ico
 
 
 
-**Creating a Data Pipeline**
+Creating a Data Pipeline
 ----------------------------
 
-**Before you begin**
+Before you begin
 --------------------
 
 You must have already created at least one of each: project, data source, function, and category. Also, a cloud profile is required for cloud data destinations or edge endpoints.
@@ -1122,7 +1184,7 @@ You must have already created at least one of each: project, data source, functi
 
 3. **Data Pipeline Name**. Name your data pipeline. Up to 63 lowercase alphanumeric characters and the dash character (-) are allowed.
 
-**Input - Add a Data Source**
+Input - Add a Data Source
 -----------------------------
 
 Click **Add Data Source**, then select **Data Source**.
@@ -1133,7 +1195,7 @@ Click **Add Data Source**, then select **Data Source**.
 
 3. Click **X** to delete a data source category and value.
 
-**Transformation - Add a Function**
+Transformation - Add a Function
 -----------------------------------
 
 1. Click **Add Function** and select an existing Function.
@@ -1175,7 +1237,7 @@ Click **Add Data Source**, then select **Data Source**.
 
    12. Click **Create**.
 
-**Output - Add a Destination**
+Output - Add a Destination
 ------------------------------
 
 1. Click **Add Destination** to specify where the transformed data is to be output.
@@ -1216,7 +1278,7 @@ Click **Add Data Source**, then select **Data Source**.
 
 5. Click **Create**.
 
-**Editing a Data Pipeline**
+Editing a Data Pipeline
 ---------------------------
 
 This topic describes how to update a data pipeline and assumes you have already logged on to the Xi IoT management console.
@@ -1233,7 +1295,7 @@ Click **X** or **Cancel** to exit this task.
 
 5. You cannot update the data pipeline name.
 
-**Input - Edit a Data Source**
+Input - Edit a Data Source
 ------------------------------
 
 You can do any of the following:
@@ -1248,7 +1310,7 @@ You can do any of the following:
 
 5. Select a different category.
 
-**Transformation - Edit a Function**
+Transformation - Edit a Function
 ------------------------------------
 
 You can do any of the following tasks.
@@ -1293,7 +1355,7 @@ You can do any of the following tasks.
 
 8. Click **Create**.
 
-**Output - Edit a Destination**
+Output - Edit a Destination
 -------------------------------
 
 You can do any of the following tasks.
@@ -1340,7 +1402,7 @@ You can do any of the following tasks.
    for external permissions required to publish data vis public cloud
    connectors.
 
-**Removing a Data Pipeline**
+Removing a Data Pipeline
 ----------------------------
 
 This topic describes how to delete a data pipeline and assumes you have
@@ -1350,10 +1412,10 @@ already logged on to the Xi IoT management console.
 
 2. Select a data pipeline, click **Remove**, then click **Remove** again to confirm.
 
-**Appendix**
-============
+Appendix
+############
 
-**Required Cloud Connector Permissions**
+Required Cloud Connector Permissions
 ----------------------------------------
 
 Xi IoT requires the following permissions from each service to publish output data.
