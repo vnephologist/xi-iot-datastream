@@ -1,4 +1,4 @@
-.. title:: Nutanix Xi IoT Getting Started with Data Pipelines
+.. title:: Nutanix Xi - IoT Getting Started with Data Pipelines
 
 .. toctree::
   :maxdepth: 2
@@ -6,9 +6,13 @@
   :name: _req-labs
   :hidden:
 
-Welcome
-###########
-Welcome to the Nutanix Xi IoT Getting Started with Data Pipelines Guide, v0.2.
+  .. example/index
+  contents/lab
+.. _welcome:
+
+**Welcome**
+===========
+Welcome to the Xi IoT - Data Pipelines - Getting Started Guide, v0.2.
 
 
 Introducing Data Pipelines
@@ -146,6 +150,7 @@ Python 2
 
    Below is a simple example that shows how to connect to an mqtt  broker, publish a single message to a specific topic and receive the published message back.
 
+   .. code-block:: python2
    # Example code to connect, publish and subscribe from a mqtt client
 
    # For the example to work:
@@ -166,7 +171,7 @@ Python 2
 
    def on_connect(client, userdata, flags, rc):
 
-   if rc ## 0:
+        if rc == 0:
 
    print("Connected to broker")
 
@@ -210,21 +215,16 @@ Python 2
 
    client = mqttClient.Client()
 
-   # Set callbacks for connection event, publish event and message
-   receive event
+        # Set callbacks for connection event, publish event and message receive event
 
    client.on_connect = on_connect
 
    client.on_publish = on_publish
 
    client.on_message = on_message
+        client.tls_set(ca_certs="certs/ca.crt", certfile="certs/client.crt", keyfile="certs/client.key", cert_reqs=ssl.CERT_REQUIRED, tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None)
 
-   client.tls_set(ca_certs="certs/ca.crt", certfile="certs/client.crt",
-   keyfile="certs/client.key", cert_reqs=ssl.CERT_REQUIRED,
-   tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None)
-
-   # Set this to ignore hostname only. TLS is still valid with this
-   setting.
+        # Set this to ignore hostname only. TLS is still valid with this setting.
 
    client.tls_insecure_set(True)
 
@@ -254,7 +254,7 @@ Python 2
 
    client.loop_stop()
 
-   if \__name_\_ ## "__main__":
+    if __name__ == "__main__":
 
    main()
 
@@ -274,10 +274,12 @@ Python 2
 
    Run the example as follows:
 
+   .. code-block:: python2
    $ python2.7 mqtt-example.py
 
    Expected output:
 
+   .. code-block:: bash
    Connecting...
 
    Connected to broker
@@ -307,7 +309,7 @@ Xi IoT includes standard runtime environments including but not limited to the f
 
    -  Following is a basic Node.js function template:
 
-..
+      .. code-block:: NodeJS
 
    function main(ctx, msg) {
 
@@ -337,12 +339,14 @@ Xi IoT includes standard runtime environments including but not limited to the f
 
    All functions must export main which returns a promise.
 
-   Following is some sample console output of function:
+   Expected console output:
 
+   .. code-block:: bash
    Config { IntParam: '42', StringParam: 'hello' }
 
    2764855
 
+   .. note::
    Packages available in NodeJS Runtime
 
 -  alpine-baselayout
